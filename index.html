@@ -299,6 +299,11 @@ async function loadWeather(){
     const r2=await fetch(u2); const j2=await r2.json();
     const a=Math.round(j2.current.us_aqi);
     const kat=a<=50?"Baik":a<=100?"Sedang":a<=150?"Tidak Sehat":a<=200?"Sangat Tidak Sehat":"Berbahaya";
+    const warna=a<=50?"#69c08a":a<=100?"#e8c96a":a<=150?"#e89b5a":a<=200?"#e86a5a":"#ff4d4d";
+    const el=$("aqi"), dot=document.querySelector(".aqi .dot");
+    el.textContent="Kota Palembang - AQI "+a+" ("+kat+")";
+    el.style.color=warna; dot.style.background=warna; dot.style.boxShadow="0 0 10px "+warna+"aa";
+    if(a>150){ dot.classList.add("danger"); } else { dot.classList.remove("danger"); }
     $("aqi").textContent="Kota Palembang - AQI "+a+" ("+kat+")";
   }catch(e){ $("aqi").textContent="AQI --"; }
 }
